@@ -1,0 +1,26 @@
+name: Python test
+
+# UNCOMMENT THESE WHEN ACTIONS ARE READY
+on:
+  push:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: ["22.14"] # Probably replace this later with a single python version
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set Up Node ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Install dependencies
+      run: |
+          npm install
+    - name: Running tests 
+      working-directory: ./meshwith
+      run: |
+          npm test
