@@ -7,11 +7,11 @@ const Login = () => {
 
     const handleLogin = async () => {
         try {
-            const response = await axios.post('http://localhost:5000/auth/login', { username, password });
+            const response = await axios.post(process.env.BACKEND_URI + '/auth/login', { email: username, password });
             localStorage.setItem('token', response.data.token);
             alert('Login successful!');
         } catch (error) {
-            alert('Login failed');
+            alert('Login failed. Reason: ' + error);
         }
     };
 

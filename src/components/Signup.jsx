@@ -7,10 +7,10 @@ const Signup = () => {
 
     const handleSignup = async () => {
         try {
-            const response = await axios.post('http://localhost:5000/auth/signup', { username, password });
+            const response = await axios.post(process.env.BACKEND_URI + '/auth/signup', { username, email: "TODO", password });
             alert('Signup successful!');
         } catch (error) {
-            alert('Signup failed');
+            alert('Signup failed. Reason: ' + error);
         }
     };
 
