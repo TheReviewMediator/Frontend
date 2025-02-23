@@ -4,13 +4,15 @@ npm install
 npm run dev
 ```
 
-# Design
-The design of this project is based on the [figma](https://www.figma.com/design/k3WV6n6WadgTqRXme2QDWB/Wireframes?node-id=0-1&p=f&t=RFggK8M5Q5wxjLEd-0). Text Landon (@cheapcouches) for access.
+In order to connect with our [backend](https://github.com/akhan58/mediator-portal), you will need to create a .env file and update `BACKEND_URI` with the link for the backend service (see `.env.example`)
 
 # Testing
 ```
 npm test
 ```
+
+# Design
+The design of this project is based on the [figma](https://www.figma.com/design/k3WV6n6WadgTqRXme2QDWB/Wireframes?node-id=0-1&p=f&t=RFggK8M5Q5wxjLEd-0). Text Landon (@cheapcouches) for access.
 
 # React + Vite
 
