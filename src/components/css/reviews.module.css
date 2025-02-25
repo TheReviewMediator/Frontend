@@ -1,0 +1,23 @@
+.reviewHeader {
+  justify-content: left;
+  margin-bottom: 20px;
+  margin-right: auto;
+  margin-left: 0px;
+  text-align: left;
+  border: 1px solid black;
+}
+
+.reviewBody {
+  margin-top: 10px;
+  margin-bottom: 5px;
+  margen-right: 10px;
+}
+
+.respondButton {
+  float: right;
+}
+
+/* TODO - make this width not hard-coded */
+.reviewTable {
+  width: 400px;
+}
