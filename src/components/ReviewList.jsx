@@ -4,10 +4,20 @@ import axios from 'axios';
 import styles from './css/reviews.module.css';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
+import FlagReviewOffcanvas from './FlagReviewOffcanvas';
 
 // The review itself - displays it's information and appropriate buttons
 // TODO - make the `...` show more options
 function Review({review}) {
+  const [showFlag, setShowFlag] = useState(false);
+
+  const handleCloseFlag = () => {
+    setShowFlag(false);
+    console.log("CLOSED THE CANVAS");
+  }
+  
+  const handleShowFlag = () => setShowFlag(true);
+  
   return (
     <div className={styles.reviewHeader}>
       {review.platform}, <b>{review.rating} stars</b>
@@ -20,11 +30,13 @@ function Review({review}) {
           
           <Dropdown.Menu>
             <Dropdown.Item>Request Outreach</Dropdown.Item>
-            <Dropdown.Item>Flag</Dropdown.Item>
+            <Dropdown.Item onClick={handleShowFlag}>Flag</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
         <button className={styles.respondButton}>Respond</button>
       </div>
+
+      <FlagReviewOffcanvas show={showFlag} handleClose={handleCloseFlag} review={review}></FlagReviewOffcanvas>
     </div>
   )
 }
@@ -53,7 +65,6 @@ function ReviewList({ reviews }) {
     );
   });
 
-  // TODO - the console is screaming at me about hydration errors, so we should probably replace this table element with something else.
   return (
     <div className={styles.dashboard}>
       <div className={styles.searchBar}>

@@ -4,9 +4,6 @@ import { Link } from 'react-router-dom';
 import styles from './css/reviews.module.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
-import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
-
 // Keeps track of keywords given in search bar
 function Keywordbox() {
   return (
@@ -24,7 +21,7 @@ function Keywordbox() {
 function Sourcebox({ sources }) {
   return (
 
-    <table className={styles.reviewTable}>
+    <table className={styles.reviewList}>
       <tbody> {sources} </tbody>
     </table>
   )
@@ -44,14 +41,15 @@ const Searchbar = ({ sources }) => {
           <Sourcebox sources={ sources }/>
         </div>
           
-          
-        <DropdownButton id="dropdown-basic-button" title="Dropdown button">
-          <Dropdown.Item href="#/5-star"> 5 stars </Dropdown.Item>
-          <Dropdown.Item href="#/4-star"> 4 stars </Dropdown.Item>
-          <Dropdown.Item href="#/3-star"> 3 stars </Dropdown.Item>
-          <Dropdown.Item href="#/2-star"> 2 stars </Dropdown.Item>
-          <Dropdown.Item href="#/1-star"> 1 stars </Dropdown.Item>
-        </DropdownButton>
+        <label>
+          <select defaultValue="5">
+            <option value='5'> 5 stars </option>
+            <option value='4'> 4 stars </option>
+            <option value='3'> 3 stars </option>
+            <option value='2'> 2 stars </option>
+            <option value='1'> 1 stars </option>
+          </select>
+        </label>
       </div>
     );
 };
