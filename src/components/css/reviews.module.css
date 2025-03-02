@@ -18,6 +18,24 @@
 }
 
 /* TODO - make this width not hard-coded */
-.reviewTable {
-  width: 400px;
+.reviewList {
+  margin-left: 5px;
+  flex: 12;
+  width: 75%;
+  list-style-type: none;
+}
+
+.dashboard {
+  width: 80%;
+  display: flex;
+}
+
+.searchBar {
+  flex: 1;
+  border: 1px solid black;
+}
+
+.sourceBoxes {
+  justify-content: left;
+  text-align: left;
 }
