@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import Searchbar from './Searchbar';
 import axios from 'axios';
 import styles from './css/reviews.module.css';
-import DashboardNavbar from './DashboardNavbar';
 import ReviewList from './ReviewList';
+import DashboardNavbar from './DashboardNavbar';
 import Nav from 'react-bootstrap/Nav';
 
 // The actual web page
-const ReviewDashboard = ({ businessId }) => {
+const CasesDashboard = ({ businessId }) => {
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
@@ -26,11 +26,11 @@ const ReviewDashboard = ({ businessId }) => {
 
   return (
       <div>
-        <DashboardNavbar activeLink={'/dashboard/reviews'}/>
-        <h2> Review Dashboard </h2>
+        <DashboardNavbar activeLink={'/dashboard/cases'}/>
+        <h2> TODO - Cases Dashboard </h2>
         <ReviewList reviews={reviews}/>
       </div>
   );
 };
 
-export default ReviewDashboard;
+export default CasesDashboard;
