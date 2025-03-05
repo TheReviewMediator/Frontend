@@ -5,18 +5,18 @@ import styles from './css/reviews.module.css';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import FlagReviewOffcanvas from './FlagReviewOffcanvas';
+import RespondOffcanvas from './RespondOffcanvas';
 
 // The review itself - displays it's information and appropriate buttons
-// TODO - make the `...` show more options
-function Review({review}) {
+// Also serves as the parent class for the offcanvases
+function Review({review, alertState}) {
   const [showFlag, setShowFlag] = useState(false);
+  const [showRespond, setShowRespond] = useState(false);
 
-  const handleCloseFlag = () => {
-    setShowFlag(false);
-    console.log("CLOSED THE CANVAS");
-  }
-  
   const handleShowFlag = () => setShowFlag(true);
+  const handleCloseFlag = () => setShowFlag(false);
+  const handleShowRespond = () => setShowRespond(true);
+  const handleCloseRespond = () => setShowRespond(false);
   
   return (
     <div className={styles.reviewHeader}>
@@ -33,17 +33,17 @@ function Review({review}) {
             <Dropdown.Item onClick={handleShowFlag}>Flag</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
-        <button className={styles.respondButton}>Respond</button>
+        <button className={styles.respondButton} onClick={handleShowRespond}>Respond</button>
       </div>
-
-      <FlagReviewOffcanvas show={showFlag} handleClose={handleCloseFlag} review={review}></FlagReviewOffcanvas>
+      <RespondOffcanvas show={showRespond} handleClose={handleCloseRespond} review={review} alertState={alertState}></RespondOffcanvas>
+      <FlagReviewOffcanvas show={showFlag} handleClose={handleCloseFlag} review={review} alertState={alertState}></FlagReviewOffcanvas>
     </div>
   )
 }
 
-// Builds a table of reviews
+// Builds a list of reviews
 // We do it like this because I think it's easier to format the HTML this way
-function ReviewList({ reviews }) {
+function ReviewList({ reviews, alertState }) {
   const rows = [];
   const sources = [];
 
@@ -61,7 +61,7 @@ function ReviewList({ reviews }) {
       );
     }
     rows.push(
-      <Review review={review_item} />
+      <Review review={review_item} alertState={alertState} />
     );
   });
 

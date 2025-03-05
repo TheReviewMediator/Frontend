@@ -43,3 +43,8 @@
 .flagOffcanvas {
   height: 10%;
 }
+
+.successAlert {
+  width: 70%;
+  justify-content: center;
+}
