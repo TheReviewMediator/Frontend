@@ -10,6 +10,7 @@ import Nav from 'react-bootstrap/Nav';
 const CasesDashboard = ({ businessId }) => {
   const [reviews, setReviews] = useState([]);
 
+  // TODO - replace this with a fetchCases call
   useEffect(() => {
       const fetchReviews = async () => {
           try {
