@@ -2,17 +2,13 @@ import React, { useEffect, useState } from 'react';
 import Searchbar from './Searchbar';
 import axios from 'axios';
 import styles from './css/reviews.module.css';
-import DashboardNavbar from './DashboardNavbar';
 import ReviewList from './ReviewList';
-import Alert from 'react-bootstrap/Alert';
+import DashboardNavbar from './DashboardNavbar';
 import Nav from 'react-bootstrap/Nav';
 
 // The actual web page
-const ReviewDashboard = ({ businessId }) => {
+const InteractionsDashboard = ({ businessId }) => {
   const [reviews, setReviews] = useState([]);
-  const [showAlert, setShowAlert] = useState(null); // This is drilled down to the offcanvases
-
-  const handleCloseAlert = () => setShowAlert(null); 
 
   useEffect(() => {
       const fetchReviews = async () => {
@@ -30,17 +26,11 @@ const ReviewDashboard = ({ businessId }) => {
 
   return (
       <div>
-        <DashboardNavbar activeLink={'/dashboard/reviews'}/>
-        <h2> Review Dashboard </h2>
-        <ReviewList reviews={reviews} alertState={{state: showAlert, setter: setShowAlert}}/>
-        <div className={styles.successAlert}>
-          {(showAlert != null) ? 
-              <Alert key={'success'} variant='success' dismissable={true} onClose={() => setShowAlert(null)}>
-                {showAlert}
-              </Alert> : null}
-        </div>
+        <DashboardNavbar activeLink={'/dashboard/interactions'}/>
+        <h2> TODO - Interactions Dashboard </h2>
+        <ReviewList reviews={reviews}/>
       </div>
   );
 };
 
-export default ReviewDashboard;
+export default InteractionsDashboard;
