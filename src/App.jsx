@@ -6,6 +6,7 @@ import DashboardNavbar from './components/DashboardNavbar';
 import ReviewDashboard from './components/ReviewDashboard';
 import InteractionsDashboard from './components/InteractionsDashboard';
 import CasesDashboard from './components/CasesDashboard';
+import GenerateReviewPage from './components/GenerateReviewPage.jsx';
 import ReviewRequestForm from './components/ReviewRequestForm';
 import Navbar from './components/Navbar'; // Optional: Add a navigation bar
 import './App.css';
@@ -26,6 +27,7 @@ function App() {
             <Route path="/dashboard/reviews" element={<ReviewDashboard />} />
             <Route path="/dashboard/cases" element={<CasesDashboard />} />
             <Route path="/dashboard/interactions" element={<InteractionsDashboard />} />
+            <Route path="/generate-review" element={<GenerateReviewPage />} />
           </Routes>
         </div>
       </Router>

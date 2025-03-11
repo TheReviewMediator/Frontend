@@ -1,0 +1,33 @@
+
+.successAlert {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+.alert {
+  display: flex;
+  flex-basis: 30%;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+}
+
+.alertText{
+  display: flex;
+  align-content: center;
+  align-self: center;
+  vertical-align: center;
+}
+
+.alertButton {
+  align-self: flex-end;
+}
+
+.closeButton {
+  position: relative;
+  float: right;
+  margin-left: 10;
+}
+
