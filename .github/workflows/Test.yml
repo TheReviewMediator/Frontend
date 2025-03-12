@@ -1,4 +1,4 @@
-name: Python test
+name: Test react components
 
 # UNCOMMENT THESE WHEN ACTIONS ARE READY
 on:

@@ -10,7 +10,7 @@ import ReviewDashboard from './ReviewDashboard';
 
 // The actual web page
 const DashboardNavbar = ({ activeLink }) => {
-  const [showConnections, setShowConnections] = useState(true);
+  const [showConnections, setShowConnections] = useState(false);
 
   return (
     <div>

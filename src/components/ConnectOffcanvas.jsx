@@ -11,6 +11,7 @@ import Button from 'react-bootstrap/Button';
 // The form you fill out for a request
 function ConnectionCards({ platform }) {
   // These states mock a connection to Google, Yelp, etc. The actual implementation will probably use a Context.
+  // These states are also forgotten when we close out of the offcanvas. We will definitely use Context for these.
   const [googleConnected, setGoogleConnected] = useState(false);
   const [yelpConnected, setYelpConnected] = useState(false);
   const [facebookConnected, setFacebookConnected] = useState(false);
