@@ -16,7 +16,8 @@ const ReviewDashboard = ({ businessId }) => {
   useEffect(() => {
       const fetchReviews = async () => {
           try {
-              const response = await axios.get(process.env.BACKEND_URI + `/api/reviews/fetchReviews`);
+              // TODO - replace with real endpoint in prod
+              const response = await axios.get(process.env.BACKEND_URI + `/api/mock-reviews/all`);
               console.log('Fetched reviews');
               console.log(response);
               setReviews(response.data);
@@ -39,7 +40,7 @@ const ReviewDashboard = ({ businessId }) => {
             </Alert>        
           : null}
         </div>
-        <ReviewList reviews={reviews} alertState={{state: showAlert, setter: setShowAlert}}/>
+        <ReviewList reviews={reviews} setReviews={setReviews} alertState={{state: showAlert, setter: setShowAlert}}/>
       </div>
   );
 };

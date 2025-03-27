@@ -20,9 +20,12 @@ function Review({review, alertState}) {
   
   return (
     <div className={styles.reviewHeader}>
-      {review.platform}, <b>{review.rating} stars</b>
+      <div>
+        {review.platform}, <b>{review.rating} stars</b>, 
+        <p class="text-muted" style={{display:'inline'}}> {review.timestamp.substring(0, 10)} </p>
+      </div>
       <div className={styles.reviewBody}>
-        {review.text}
+        {review.content}
         <Dropdown className={styles.respondButton}>
           <Dropdown.Toggle variant="success" id="more_options">
             More
@@ -43,23 +46,13 @@ function Review({review, alertState}) {
 
 // Builds a list of reviews
 // We do it like this because I think it's easier to format the HTML this way
-function ReviewList({ reviews, alertState }) {
+function ReviewList({ reviews, setReviews, alertState }) {
   const rows = [];
-  const sources = [];
+  // see searchbar.jsx for details on the structure of filter
+  const [filter, setFilter] = useState([{'search': ''}, {'stars': -1}]); //-1 indicates show all stars
 
   reviews.forEach((review_item) => {
-    // Handle creating checkboxes for search function
-    // This should probably be refactored to Searchbar.jsx 
-    if (sources.indexOf(review_item.platform) === -1) {
-      sources.push(
-        <div className={styles.sourceBoxes}>
-          <label>
-            <input type="checkbox" name="checkbox" value="value"/>
-            {review_item.platform}
-          </label>
-        </div>
-      );
-    }
+    // Build each review 
     rows.push(
       <Review review={review_item} alertState={alertState} />
     );
@@ -68,10 +61,12 @@ function ReviewList({ reviews, alertState }) {
   return (
     <div className={styles.dashboard}>
       <div className={styles.searchBar}>
-        <Searchbar sources={ sources }/>
+        <Searchbar reviews={ reviews } filter={ filter }setFilter={ setFilter }/>
       </div>
       <ol className={styles.reviewList}>
-        <li> {rows} </li>
+        {rows.map(review => (
+          <li> {review} </li>
+        ))}
       </ol>
     </div>
   )
