@@ -15,6 +15,9 @@ function Sourcebox({ sources }) {
 }
 
 // Searchbar HTML + Filter handling
+// I know that having one single object would make our code a lot simpler
+// however if we do this we get a memory leak and I don't know why or how to fix it
+// so we must do it in this stupid and obnoxious way. dorry i dont make the rules
 /* Filter structure:
  [
   {platformName1: true} // True/false indicates to show reviews from platform
@@ -27,13 +30,13 @@ function Sourcebox({ sources }) {
 */
 // this whole component is spicy spaghetti. sorry :)
 const Searchbar = ({ reviews, filter, setFilter }) => {
-  const sources = [];
+  let sources = [];
+  console.log(filter);
 
   // UseState variables
   const [search, setSearch] = useState('');
-  const [stars, setStars] = useState(-1); // -1 stars indicates show all
+  const [stars, setStars] = useState(1);
 
-  // Build checkboxes + add platforms to filter
   reviews.forEach((review_item) => {
     // Handle creating checkboxes for search function
     // This should probably be refactored to Searchbar.jsx 
@@ -50,53 +53,31 @@ const Searchbar = ({ reviews, filter, setFilter }) => {
           </label>
         </div>
       );
-      // Add the platforms to our filter
-      if (!(filter.find(p => p.platform === review_item.platform))) {
-        setFilter(filter.concat({ 'platform': review_item.platform, 'active': true }));
-      }
     }
   });
 
   // Add or edits a search to the current filter
   function updateSearch(search) {
     setSearch(search.target.value); // We need this to update the bar visually
-    let out = filter.slice();
-    out = out.map((f) => {
-      if ('search' in f) {
-        return {'search': search.target.value}
-      }
-      else {return f}
-    })
-    setFilter(out);
+    let out = filter.slice()[0];
+    out.search = search.target.value;
+    setFilter([out]);
   }
 
   // Add or edits a search to the current filter
   function updateStars(stars) {
     setStars(stars.target.value); // We need this to update the bar visually
-    let out = filter.slice();
-    out = out.map((f) => {
-      if ('stars' in f) {
-        return {'stars': parseInt(stars.target.value)}
-      }
-      else {return f}
-    })
-    setFilter(out);
+    let out = filter.slice()[0];
+    out.stars = stars.target.value;
+    setFilter([out]);
   }
 
   // Removes a platform from our useState
   const togglePlatform = (platform) => {
-    const out = [];
-    filter.forEach((p) => {
-      if (!('platform' in p)) {
-        out.push(p); //ignore non-platform entries
-      }
-      else if (p['platform'] === platform) {
-        out.push({ 'platform': platform, 'active': !p['active'] });
-      } else {
-        out.push({ 'platform': p.platform, 'active': p['active'] });
-      }
-    });
-    setFilter(out);
+    console.log(typeof(filter));
+    const out = filter.slice()[0];
+    out[platform] = !out[platform];
+    setFilter([out]);
   }
 
 
@@ -118,10 +99,10 @@ const Searchbar = ({ reviews, filter, setFilter }) => {
       <label>
         <select defaultValue="1" value={stars} onChange={updateStars}>
           <option value='5'> 5 stars </option>
-          <option value='4'> 4 stars </option>
-          <option value='3'> 3 stars </option>
-          <option value='2'> 2 stars </option>
-          <option value='1'> 1 stars </option>
+          <option value='4'> 4 stars or more </option>
+          <option value='3'> 3 stars or more </option>
+          <option value='2'> 2 stars or more </option>
+          <option value='1'> 1 stars or more </option>
         </select>
       </label>
     </div>

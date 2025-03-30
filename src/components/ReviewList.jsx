@@ -48,14 +48,31 @@ function Review({review, alertState}) {
 // We do it like this because I think it's easier to format the HTML this way
 function ReviewList({ reviews, setReviews, alertState }) {
   const rows = [];
-  // see searchbar.jsx for details on the structure of filter
-  const [filter, setFilter] = useState([{'search': ''}, {'stars': -1}]); //-1 indicates show all stars
+  const [filter, setFilter] = useState([{
+    search: '',
+    stars: -1, // -1 indicates show all results
+  }]);
 
-  reviews.forEach((review_item) => {
-    // Build each review 
+  // Populate filter with platformName: boolean pairs
+  useEffect(() => {
+    const tempFilter = { ...filter[0] }; // Copy existing filter
+    reviews.forEach((review_item) => {
+      if (!(review_item.platform in tempFilter)) {
+        tempFilter[review_item.platform] = true; // Add platformName: boolean pair
+      }
+    });
+    setFilter([tempFilter]); // Update state with the new filter
+  }, [reviews]);
+
+  reviews.forEach((review) => {
+    if (filter[0][review.platform]
+      && review.content.includes(filter[0].search)
+      && review.rating > filter[0].stars
+    ) {
     rows.push(
-      <Review review={review_item} alertState={alertState} />
+      <Review review={review} alertState={alertState} />
     );
+    }
   });
 
   return (
@@ -64,9 +81,10 @@ function ReviewList({ reviews, setReviews, alertState }) {
         <Searchbar reviews={ reviews } filter={ filter }setFilter={ setFilter }/>
       </div>
       <ol className={styles.reviewList}>
-        {rows.map(review => (
-          <li> {review} </li>
-        ))}
+        {rows.map(review => { 
+          return (<li> {review} </li>)
+          }
+        )}
       </ol>
     </div>
   )
