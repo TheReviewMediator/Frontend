@@ -15,17 +15,14 @@ function Sourcebox({ sources }) {
 }
 
 // Searchbar HTML + Filter handling
-// I know that having one single object would make our code a lot simpler
-// however if we do this we get a memory leak and I don't know why or how to fix it
-// so we must do it in this stupid and obnoxious way. dorry i dont make the rules
 /* Filter structure:
  [
-  {platformName1: true} // True/false indicates to show reviews from platform
-  {platformName2: false}
+  {platformName1: true, // True/false indicates to show reviews from platform
+  platformName2: false,
   ...
-  {platformNameN: true}
-  {search: query} // Filter reviews based on search content
-  {stars: 2} // Filter reviews based on X stars or above
+  platformNameN: true,
+  search: query, // Filter reviews based on search content
+  stars: 2} // Filter reviews based on X stars or above
 ] // Array because we can technically update array states
 */
 // this whole component is spicy spaghetti. sorry :)

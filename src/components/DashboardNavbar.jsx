@@ -1,21 +1,35 @@
-import React, { useEffect, useState } from 'react';
-import Searchbar from './Searchbar';
+import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import styles from './css/navBar.module.css';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import Container from 'react-bootstrap/Container';
 import ConnectOffcanvas from './ConnectOffcanvas';
-import ReviewDashboard from './ReviewDashboard';
+import { BrandContext } from './BrandingContext';
+import BrandingModal from './BrandingModal';
 
 // The actual web page
 const DashboardNavbar = ({ activeLink }) => {
+  const { brandImage, setBrandImage, brandName, setBrandName } = useContext(BrandContext);
   const [showConnections, setShowConnections] = useState(false);
+  const [showBrandingModal, setShowBrandingModal] = useState(false);
+
+  const handleShowBrandingModal = () => {
+    setShowBrandingModal(true);
+  }
 
   return (
     <div>
       <Navbar className={styles.navBar}>
-        <Navbar.Brand> BRAND GOES HERE </Navbar.Brand>
+        <Navbar.Brand
+          style={{ cursor: 'pointer' }}
+          onClick={() => handleShowBrandingModal()}>
+          <img
+            src={brandImage}
+            height={64}
+            width={64}
+          />
+          {brandName}
+        </Navbar.Brand>
         <Nav className="me-auto" activeKey={activeLink}>
           <Nav.Link href="/dashboard/reviews">Reviews</Nav.Link>
           <Nav.Link href="/dashboard/cases">Cases</Nav.Link>
@@ -25,9 +39,9 @@ const DashboardNavbar = ({ activeLink }) => {
           <Nav.Link href="/generate-review" className={styles.actionButtons}> Generate Review Requests </Nav.Link>
           <Nav.Link onClick={() => setShowConnections(true)} className={styles.actionButtons}> Connect To Platforms </Nav.Link>
         </Nav>
-        <Navbar.Text> User: <b> USER_NAME </b> </Navbar.Text>
       </Navbar>
-      <ConnectOffcanvas show={showConnections} handleClose={() => setShowConnections(false)}/>    
+      <ConnectOffcanvas show={showConnections} handleClose={() => setShowConnections(false)} />
+      <BrandingModal show={showBrandingModal} handleClose={() => setShowBrandingModal(false)} />
     </div>
   );
 };

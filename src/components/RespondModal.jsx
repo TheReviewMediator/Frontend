@@ -1,23 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import Searchbar from './Searchbar';
 import axios from 'axios';
 import styles from './css/reviews.module.css';
 import Modal from 'react-bootstrap/Modal';
-import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
-
-
-
-// The form you fill out for a request
-function ConnectionCards({ platform }) {
-  
-};
 
 // Three inputs:
 // Show - The state of the offcanvas
 // handleClose - the function that will close the canvas
 // review - data pertaining to the current selected review. Should be a review object (see reviewList.jsx)
-function ConnectOffcanvas({ show, handleClose }) {
+function RespondModal({ show, handleClose }) {
   const [showResponse, setShowResponse] = useState(false);
 
   const submitForm = (formData) => {
@@ -47,4 +38,4 @@ function ConnectOffcanvas({ show, handleClose }) {
   );
 }
 
-export default ConnectOffcanvas;
+export default RespondModal;

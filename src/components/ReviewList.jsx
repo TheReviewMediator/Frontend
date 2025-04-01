@@ -5,7 +5,7 @@ import styles from './css/reviews.module.css';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import FlagReviewOffcanvas from './FlagReviewOffcanvas';
-import RespondOffcanvas from './RespondOffcanvas';
+import RespondModal from './RespondModal';
 
 // The review itself - displays it's information and appropriate buttons
 // Also serves as the parent class for the offcanvases
@@ -38,7 +38,7 @@ function Review({review, alertState}) {
         </Dropdown>
         <button className={styles.respondButton} onClick={handleShowRespond}>Respond</button>
       </div>
-      <RespondOffcanvas show={showRespond} handleClose={handleCloseRespond} review={review} alertState={alertState}></RespondOffcanvas>
+      <RespondModal show={showRespond} handleClose={handleCloseRespond} review={review} alertState={alertState}></RespondModal>
       <FlagReviewOffcanvas show={showFlag} handleClose={handleCloseFlag} review={review} alertState={alertState}></FlagReviewOffcanvas>
     </div>
   )
@@ -55,15 +55,16 @@ function ReviewList({ reviews, setReviews, alertState }) {
 
   // Populate filter with platformName: boolean pairs
   useEffect(() => {
-    const tempFilter = { ...filter[0] }; // Copy existing filter
+    const tempFilter = { ...filter[0] }; 
     reviews.forEach((review_item) => {
       if (!(review_item.platform in tempFilter)) {
-        tempFilter[review_item.platform] = true; // Add platformName: boolean pair
+        tempFilter[review_item.platform] = true;
       }
     });
-    setFilter([tempFilter]); // Update state with the new filter
+    setFilter([tempFilter]);
   }, [reviews]);
 
+  // Build review list with filter
   reviews.forEach((review) => {
     if (filter[0][review.platform]
       && review.content.includes(filter[0].search)
