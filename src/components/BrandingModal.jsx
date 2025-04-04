@@ -53,8 +53,8 @@ function BrandingModal({ show, handleClose }) {
           <img src={brandImage}/>
           <Form onSubmit={(e) => updateBrandContext(e)}>
             <Form.Group controlId="formfile">
-              <Form.Label>Upload a new image file: </Form.Label>
-              <Form.Control type="file" value={uploadedImage} onChange={(e) => handleImage(e)}/>
+              <Form.Label>Upload a new image file <b>(Coming Soon!)</b>: </Form.Label>
+              <Form.Control type="file" value={uploadedImage} onChange={(e) => handleImage(e)} disabled/>
             </Form.Group>
             <Form.Group> 
               <Form.Label> Business Name: </Form.Label>

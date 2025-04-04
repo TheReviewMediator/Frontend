@@ -8,30 +8,40 @@ import Nav from 'react-bootstrap/Nav';
 
 // The actual web page
 const CasesDashboard = ({ businessId }) => {
-  const [reviews, setReviews] = useState([]);
+    let sources = [];
+    const [cases, setCases] = useState([])
 
-  // TODO - replace this with a fetchCases call
-  useEffect(() => {
-      const fetchReviews = async () => {
-          try {
-              const response = await axios.get(process.env.BACKEND_URI + `/api/reviews/fetchReviews`);
-              console.log('Fetched reviews');
-              console.log(response);
-              setReviews(response.data);
-          } catch (error) {
-              console.error('Error fetching reviews:', error);
-          }
-      };
-      fetchReviews();
-  }, [businessId]);
+    // TODO - replace this with a fetchCases call
+    useEffect(() => {
+        const fetchCases = async () => {
+            try {
+                // TODO - replace this with the endpoint for getting cases
+                const response = await axios.get(process.env.BACKEND_URI + `/api/mock-reviews/all`);
+                console.log('Fetched cases');
+                console.log(response);
+                setCases(response.data);
+            } catch (error) {
+                console.error('Error fetching Cases:', error);
+            }
+        };
+        fetchCases();
+    }, [businessId]);
 
-  return (
-      <div>
-        <DashboardNavbar activeLink={'/dashboard/cases'}/>
-        <h2> TODO - Cases Dashboard </h2>
-        <ReviewList reviews={reviews}/>
-      </div>
-  );
+  // Build a list of sources
+  // eg: ['Facebook', 'Yelp']
+  cases.forEach((review_item) => {
+    if (sources.indexOf(review_item.platform) === -1) {
+      sources.push(review_item.platform);
+    }
+  });
+
+    return (
+        <div>
+            <DashboardNavbar activeLink={'/dashboard/cases'} sources={sources} />
+            <h2> TODO - Cases Dashboard </h2>
+            <ReviewList reviews={cases} sources={sources} />
+        </div>
+    );
 };
 
 export default CasesDashboard;

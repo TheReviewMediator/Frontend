@@ -8,29 +8,39 @@ import Nav from 'react-bootstrap/Nav';
 
 // The actual web page
 const InteractionsDashboard = ({ businessId }) => {
-  const [reviews, setReviews] = useState([]);
+    let sources = [];
+    const [interactions, setInteractions] = useState([]);
 
-  useEffect(() => {
-      const fetchReviews = async () => {
-          try {
-              const response = await axios.get(process.env.BACKEND_URI + `/api/reviews/fetchReviews`);
-              console.log('Fetched reviews');
-              console.log(response);
-              setReviews(response.data);
-          } catch (error) {
-              console.error('Error fetching reviews:', error);
-          }
-      };
-      fetchReviews();
-  }, [businessId]);
+    useEffect(() => {
+        const fetchInteractions = async () => {
+            try {
+                // TODO - replace this with the endpoint for getting interactions
+                const response = await axios.get(process.env.BACKEND_URI + `/api/mock-reviews/all`);
+                console.log('Fetched interactions');
+                console.log(response);
+                setInteractions(response.data);
+            } catch (error) {
+                console.error('Error fetching interactions:', error);
+            }
+        };
+        fetchInteractions();
+    }, [businessId]);
 
-  return (
-      <div>
-        <DashboardNavbar activeLink={'/dashboard/interactions'}/>
-        <h2> TODO - Interactions Dashboard </h2>
-        <ReviewList reviews={reviews}/>
-      </div>
-  );
+  // Build a list of sources
+  // eg: ['Facebook', 'Yelp']
+  interactions.forEach((review_item) => {
+    if (sources.indexOf(review_item.platform) === -1) {
+      sources.push(review_item.platform);
+    }
+  });
+
+    return (
+        <div>
+            <DashboardNavbar activeLink={'/dashboard/interactions'} sources={sources} />
+            <h2> TODO - Interactions Dashboard </h2>
+            <ReviewList reviews={interactions} sources={sources} />
+        </div>
+    );
 };
 
 export default InteractionsDashboard;

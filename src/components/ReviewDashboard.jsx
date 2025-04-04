@@ -10,6 +10,7 @@ import Button from 'react-bootstrap/Button';
 
 // The actual web page
 const ReviewDashboard = ({ businessId }) => {
+  let sources = [];
   const [reviews, setReviews] = useState([]);
   const [showAlert, setShowAlert] = useState(null); // This is drilled down to the offcanvases
 
@@ -28,9 +29,18 @@ const ReviewDashboard = ({ businessId }) => {
       fetchReviews();
   }, [businessId]);
 
+  // Build a list of sources
+  // eg: ['Facebook', 'Yelp']
+  // This is done here because several props need it at this high level
+  reviews.forEach((review_item) => {
+    if (sources.indexOf(review_item.platform) === -1) {
+      sources.push(review_item.platform);
+    }
+  });
+
   return (
       <div>
-        <DashboardNavbar activeLink={'/dashboard/reviews'}/>
+        <DashboardNavbar activeLink={'/dashboard/reviews'} sources={sources}/>
         <h2> Review Dashboard </h2>
         <div className={styles.successAlert}>
           {(showAlert != null) ? 
@@ -40,7 +50,7 @@ const ReviewDashboard = ({ businessId }) => {
             </Alert>        
           : null}
         </div>
-        <ReviewList reviews={reviews} setReviews={setReviews} alertState={{state: showAlert, setter: setShowAlert}}/>
+        <ReviewList reviews={reviews} sources={sources} setReviews={setReviews} alertState={{state: showAlert, setter: setShowAlert}}/>
       </div>
   );
 };

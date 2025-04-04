@@ -46,7 +46,7 @@ function Review({review, alertState}) {
 
 // Builds a list of reviews
 // We do it like this because I think it's easier to format the HTML this way
-function ReviewList({ reviews, setReviews, alertState }) {
+function ReviewList({ reviews, setReviews, alertState, sources }) {
   const rows = [];
   const [filter, setFilter] = useState([{
     search: '',
@@ -79,7 +79,7 @@ function ReviewList({ reviews, setReviews, alertState }) {
   return (
     <div className={styles.dashboard}>
       <div className={styles.searchBar}>
-        <Searchbar reviews={ reviews } filter={ filter }setFilter={ setFilter }/>
+        <Searchbar reviews={ reviews } filter={ filter }setFilter={ setFilter } sources={ sources }/>
       </div>
       <ol className={styles.reviewList}>
         {rows.map(review => { 

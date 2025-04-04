@@ -6,23 +6,21 @@ import Navbar from 'react-bootstrap/Navbar';
 import ConnectOffcanvas from './ConnectOffcanvas';
 import { BrandContext } from './BrandingContext';
 import BrandingModal from './BrandingModal';
+import GenerateReviewModal from './GenerateReviewModal';
 
 // The actual web page
-const DashboardNavbar = ({ activeLink }) => {
+const DashboardNavbar = ({ activeLink, sources }) => {
   const { brandImage, setBrandImage, brandName, setBrandName } = useContext(BrandContext);
   const [showConnections, setShowConnections] = useState(false);
   const [showBrandingModal, setShowBrandingModal] = useState(false);
-
-  const handleShowBrandingModal = () => {
-    setShowBrandingModal(true);
-  }
+  const [showGenReviewModal, setShowGenReviewModal] = useState(false);
 
   return (
     <div>
       <Navbar className={styles.navBar}>
         <Navbar.Brand
           style={{ cursor: 'pointer' }}
-          onClick={() => handleShowBrandingModal()}>
+          onClick={() => setShowBrandingModal(true)}>
           <img
             src={brandImage}
             height={64}
@@ -36,11 +34,12 @@ const DashboardNavbar = ({ activeLink }) => {
           <Nav.Link href="/dashboard/interactions">Interactions</Nav.Link>
         </Nav>
         <Nav variant="pills">
-          <Nav.Link href="/generate-review" className={styles.actionButtons}> Generate Review Requests </Nav.Link>
+          <Nav.Link onClick={() => setShowGenReviewModal(true)} className={styles.actionButtons}> Generate Review Requests </Nav.Link>
           <Nav.Link onClick={() => setShowConnections(true)} className={styles.actionButtons}> Connect To Platforms </Nav.Link>
         </Nav>
       </Navbar>
       <ConnectOffcanvas show={showConnections} handleClose={() => setShowConnections(false)} />
+      <GenerateReviewModal sources={sources} show={showGenReviewModal} handleClose={() => setShowGenReviewModal(false)}> </GenerateReviewModal>
       <BrandingModal show={showBrandingModal} handleClose={() => setShowBrandingModal(false)} />
     </div>
   );

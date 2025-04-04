@@ -26,27 +26,27 @@ function Sourcebox({ sources }) {
 ] // Array because we can technically update array states
 */
 // this whole component is spicy spaghetti. sorry :)
-const Searchbar = ({ reviews, filter, setFilter }) => {
-  let sources = [];
+const Searchbar = ({ reviews, filter, setFilter, sources }) => {
+  let sourceCheckboxes = [];
   console.log(filter);
 
   // UseState variables
   const [search, setSearch] = useState('');
   const [stars, setStars] = useState(1);
 
-  reviews.forEach((review_item) => {
+  sources.forEach((source) => {
     // Handle creating checkboxes for search function
     // This should probably be refactored to Searchbar.jsx 
-    if (sources.indexOf(review_item.platform) === -1) {
-      sources.push(
+    if (sourceCheckboxes.indexOf(source) === -1) {
+      sourceCheckboxes.push(
         <div className={styles.sourceBoxes}>
           <label>
             <input type="checkbox"
               name="checkbox"
-              value={review_item.platform}
+              value={source}
               defaultChecked={true}
-              onChange={() => togglePlatform(review_item.platform)} />
-            {review_item.platform}
+              onChange={() => togglePlatform(source)} />
+            {source}
           </label>
         </div>
       );
@@ -90,7 +90,7 @@ const Searchbar = ({ reviews, filter, setFilter }) => {
       </label>
       <div>
         <b> Sources </b>
-        <Sourcebox sources={sources} />
+        <Sourcebox sources={sourceCheckboxes} />
       </div>
 
       <label>
