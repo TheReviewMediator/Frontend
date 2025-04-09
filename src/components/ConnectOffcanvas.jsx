@@ -35,6 +35,7 @@ function ConnectionCards({ platform }) {
     }
   }
   const yelpFunction = async () => {
+    console.log('Executing yelp func')
     try {
       const response = await axios.get(process.env.BACKEND_URI + `/api/reviews/yelp/${yelpId}`);
       console.log(response)
@@ -80,7 +81,7 @@ function ConnectionCards({ platform }) {
   cards.push({ name: "Google", func: googleFunction, updateFunc: updateGoogle, isConnected: googleConnected });
   cards.push({ name: "Yelp", func: yelpFunction, updateFunc: updateYelp, isConnected: yelpConnected });
   cards.push({ name: "Facebook", func: facebookFunction, updateFunc: updateFacebook, isConnected: facebookConnected });
-  cards.push({ name: "Trustpilot", func: trustpilotFunction, updateFunc: updateTrustpilot, isConnected: facebookConnected });
+  cards.push({ name: "Trustpilot", func: trustpilotFunction, updateFunc: updateTrustpilot, isConnected: trustpilotConnected });
 
   return (
     <div>
@@ -101,7 +102,7 @@ function ConnectionCards({ platform }) {
                   </Form.Group>
                 </Col>
                 <Col>
-                  <Button type="submit" onClick={() => platform.func}>Submit</Button>
+                  <Button onClick={() => platform.func()}>Submit</Button>
                 </Col>
               </Row>
             </Form>
