@@ -21,15 +21,29 @@ function FakeReviewForm({ platform }) {
 }
 
 
-function PolicyForm({ platform, handleClose, alertState }) {
+function PolicyForm({ platform, handleClose, alertState, review }) {
+  // Used to report to the review platform the offending policy
+  const [selectedReason, setSelectedReason] = useState("Select One");
+
   // TODO - replace this with actual policies
   const policies = {
     "Google": ['Hate', 'Harassment', 'Off Topic', "Bullying"],
     "Yelp": ['Hate', 'Personal Information', 'Spam']
   }
 
-  // Used to report to the review platform the offending policy
-  const [selectedReason, setSelectedReason] = useState("Select One");
+  // Have our AI analyze the review
+  useEffect(() => {
+      const fetchReviews = async () => {
+          try {
+              const response = await axios.get(process.env.BACKEND_URI + `/api/disputes/analyze/${review.reviewID}`);
+              // TODO - select reason based on response from backend
+              setSelectedReason('Select One')
+          } catch (error) {
+              console.error('Error fetching reviews:', error);
+          }
+      };
+      fetchReviews();
+  }, [review]);
 
   const handleChange = (e) => {
     setSelectedReason(e);
@@ -76,7 +90,7 @@ function PolicyForm({ platform, handleClose, alertState }) {
 
 // The form you fill out for a request
 // We take handleClose so we can pass it to the submit button later
-function FlagForm({ platform, handleClose, alertState }) {
+function FlagForm({ platform, handleClose, alertState, review }) {
   const [selectedReason, setSelectedReason] = useState("");
   
   return (
@@ -93,7 +107,7 @@ function FlagForm({ platform, handleClose, alertState }) {
           <option value='Policy Violation'> Policy Violation </option>
         </select>
       </label>
-      {(selectedReason == 'Policy Violation') ? <PolicyForm platform={platform} handleClose={handleClose} alertState={alertState}/> : null}
+      {(selectedReason == 'Policy Violation') ? <PolicyForm platform={platform} handleClose={handleClose} alertState={alertState} review={review}/> : null}
       {(selectedReason == 'Fake Review') ? <FakeReviewForm/> : null}
     </div>
   )
