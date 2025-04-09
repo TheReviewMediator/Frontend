@@ -38,7 +38,7 @@ const DashboardNavbar = ({ activeLink, sources }) => {
           <Nav.Link onClick={() => setShowConnections(true)} className={styles.actionButtons}> Connect To Platforms </Nav.Link>
         </Nav>
       </Navbar>
-      <ConnectOffcanvas show={showConnections} handleClose={() => setShowConnections(false)} />
+      <ConnectOffcanvas class="offcanvas offcanvas-start w-400 show" show={showConnections} handleClose={() => setShowConnections(false)} />
       <GenerateReviewModal sources={sources} show={showGenReviewModal} handleClose={() => setShowGenReviewModal(false)}> </GenerateReviewModal>
       <BrandingModal show={showBrandingModal} handleClose={() => setShowBrandingModal(false)} />
     </div>

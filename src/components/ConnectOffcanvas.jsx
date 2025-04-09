@@ -5,7 +5,9 @@ import styles from './css/reviews.module.css';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
-
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 
 // The form you fill out for a request
@@ -15,31 +17,94 @@ function ConnectionCards({ platform }) {
   const [googleConnected, setGoogleConnected] = useState(false);
   const [yelpConnected, setYelpConnected] = useState(false);
   const [facebookConnected, setFacebookConnected] = useState(false);
+  const [trustpilotConnected, setTrustpilotConnected] = useState(false);
 
-  // TODO - replace these functions with real stuff
-  const googleFunction = () => {setGoogleConnected(true)};
-  const yelpFunction = () => {setYelpConnected(true)};
-  const facebookFunction = () => {setFacebookConnected(true)};
+  // Keeps track of the form
+  const [googleId, setGoogleId] = useState('');
+  const [yelpId, setYelpId] = useState('');
+  const [facebookId, setFacebookId] = useState();
+  const [trustpilotId, setTrustpilotId] = useState();
+
+  // API calls
+  const googleFunction = async () => {
+    try {
+      const response = await axios.get(process.env.BACKEND_URI + `/api/reviews/google/${googleId}`);
+      console.log(response)
+    } catch (error) {
+      console.error('Error fetching reviews:', error);
+    }
+  }
+  const yelpFunction = async () => {
+    try {
+      const response = await axios.get(process.env.BACKEND_URI + `/api/reviews/yelp/${yelpId}`);
+      console.log(response)
+    } catch (error) {
+      console.error('Error fetching reviews:', error);
+    }
+  }
+  const facebookFunction = async () => {
+    try {
+      const response = await axios.get(process.env.BACKEND_URI + `/api/reviews/facebook/${facebookId}`);
+      console.log(response)
+    } catch (error) {
+      console.error('Error fetching reviews:', error);
+    }
+  }
+  const trustpilotFunction = async () => {
+    try {
+      const response = await axios.get(process.env.BACKEND_URI + `/api/reviews/trustpilot/${trustpilotId}`);
+      console.log(response)
+    } catch (error) {
+      console.error('Error fetching reviews:', error);
+    }
+  }
+
+  // Update form responses
+  const updateGoogle = (e) => {
+    setGoogleId(e.target.value);
+  }
+  const updateYelp = (e) => {
+    setYelpId(e.target.value);
+  }
+  const updateFacebook = (e) => {
+    setFacebookId(e.target.value);
+  }
+  const updateTrustpilot = (e) => {
+    setTrustpilotId(e.target.value);
+  }
 
   // The cards that will be displayed in the connection form
   // Format: {name, func, connected}
   // PlatformFunction may just be a redirect - but that's a problem for the API boys
   var cards = [];
-  cards.push({name: "Google", func: googleFunction, isConnected: googleConnected});
-  cards.push({name: "Yelp", func: yelpFunction, isConnected: yelpConnected});
-  cards.push({name: "Facebook", func: facebookFunction, isConnected: facebookConnected});
+  cards.push({ name: "Google", func: googleFunction, updateFunc: updateGoogle, isConnected: googleConnected });
+  cards.push({ name: "Yelp", func: yelpFunction, updateFunc: updateYelp, isConnected: yelpConnected });
+  cards.push({ name: "Facebook", func: facebookFunction, updateFunc: updateFacebook, isConnected: facebookConnected });
+  cards.push({ name: "Trustpilot", func: trustpilotFunction, updateFunc: updateTrustpilot, isConnected: facebookConnected });
 
-  
   return (
     <div>
       {cards.map((platform) => (
         <Card>
           <Card.Header> {platform.name} </Card.Header>
           <Card.Body>
-            {platform.isConnected ? 
-            <Button disabled> Connected! </Button> :
-            <Button onClick={platform.func}> Connect </Button> 
-            }
+            <Form>
+              <Row>
+                <Col>
+                  <Form.Group>
+                    <Form.Control
+                      required
+                      type="text"
+                      placeholder="Business ID"
+                      onChange={e => platform.updateFunc(e)}
+                    />
+                  </Form.Group>
+                </Col>
+                <Col>
+                  <Button type="submit" onClick={() => platform.func}>Submit</Button>
+                </Col>
+              </Row>
+            </Form>
           </Card.Body>
         </Card>
       ))}
@@ -58,7 +123,7 @@ function ConnectOffcanvas({ show, handleClose }) {
         <Offcanvas.Title> Connections </Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body>
-        <ConnectionCards/>
+        <ConnectionCards />
       </Offcanvas.Body>
     </Offcanvas>
   );

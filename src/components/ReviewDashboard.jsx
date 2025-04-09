@@ -18,7 +18,7 @@ const ReviewDashboard = ({ businessId }) => {
       const fetchReviews = async () => {
           try {
               // TODO - replace with real endpoint in prod
-              const response = await axios.get(process.env.BACKEND_URI + `/api/mock-reviews/all`);
+              const response = await axios.get(process.env.BACKEND_URI + `/api/reviews/all`);
               console.log('Fetched reviews');
               console.log(response);
               setReviews(response.data);
