@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import styles from './css/reviews.module.css';
-import 'bootstrap/dist/css/bootstrap.css';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import styles from "./css/reviews.module.css";
+import "bootstrap/dist/css/bootstrap.css";
 
 // List of checkmarks to filter by review source
 // `sources` is generated in ReviewDashboard.jsx as I don't want to re-use the get review call here
 function Sourcebox({ sources }) {
   return (
-
     <table className={styles.reviewList}>
       <tbody> {sources} </tbody>
     </table>
-  )
+  );
 }
 
 // Searchbar HTML + Filter handling
@@ -31,21 +30,23 @@ const Searchbar = ({ reviews, filter, setFilter, sources }) => {
   console.log(filter);
 
   // UseState variables
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [stars, setStars] = useState(1);
 
   sources.forEach((source) => {
     // Handle creating checkboxes for search function
-    // This should probably be refactored to Searchbar.jsx 
+    // This should probably be refactored to Searchbar.jsx
     if (sourceCheckboxes.indexOf(source) === -1) {
       sourceCheckboxes.push(
         <div className={styles.sourceBoxes}>
           <label>
-            <input type="checkbox"
+            <input
+              type="checkbox"
               name="checkbox"
               value={source}
               defaultChecked={true}
-              onChange={() => togglePlatform(source)} />
+              onChange={() => togglePlatform(source)}
+            />
             {source}
           </label>
         </div>
@@ -71,19 +72,20 @@ const Searchbar = ({ reviews, filter, setFilter, sources }) => {
 
   // Removes a platform from our useState
   const togglePlatform = (platform) => {
-    console.log(typeof(filter));
+    console.log(typeof filter);
     const out = filter.slice()[0];
     out[platform] = !out[platform];
     setFilter([out]);
-  }
-
+  };
 
   return (
     <div>
-      <input type="search"
-       placeholder="Search"
-       value={search}
-       onChange={updateSearch} />
+      <input
+        type="search"
+        placeholder="Search"
+        value={search}
+        onChange={updateSearch}
+      />
       <label>
         <input type="checkbox" />
         Flagged reviews only
@@ -95,11 +97,11 @@ const Searchbar = ({ reviews, filter, setFilter, sources }) => {
 
       <label>
         <select defaultValue="1" value={stars} onChange={updateStars}>
-          <option value='5'> 5 stars </option>
-          <option value='4'> 4 stars or more </option>
-          <option value='3'> 3 stars or more </option>
-          <option value='2'> 2 stars or more </option>
-          <option value='1'> 1 stars or more </option>
+          <option value="5"> 5 stars </option>
+          <option value="4"> 4 stars or more </option>
+          <option value="3"> 3 stars or more </option>
+          <option value="2"> 2 stars or more </option>
+          <option value="1"> 1 stars or more </option>
         </select>
       </label>
     </div>
