@@ -1,4 +1,3 @@
-@import "tailwindcss";
 
 .reviewHeader {
   justify-content: left;
@@ -17,6 +16,7 @@
 
 .respondButton {
   float: right;
+  margin-left: 5px;
 }
 
 /* TODO - make this width not hard-coded */
@@ -49,4 +49,18 @@
 .successAlert {
   width: 70%;
   justify-content: center;
+}
+
+.reviewContent {
+  justify-content: left;
+  text-align: left;
+}
+
+.accordionBody {
+  position: relative;
+}
+
+.accordionButtons {
+  display: flex;
+  justify-content: flex-end;
 }

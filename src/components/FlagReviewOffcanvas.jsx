@@ -23,10 +23,60 @@ function PolicyForm({ platform, handleClose, alertState, review }) {
   // Used to report to the review platform the offending policy
   const [selectedReason, setSelectedReason] = useState("Select One");
 
-  // TODO - replace this with actual policies
+  // TODO - we probably want to replace these policies with a backend endpoint should the policies change
   const policies = {
-    Google: ["Hate", "Harassment", "Off Topic", "Bullying"],
-    Yelp: ["Hate", "Personal Information", "Spam"],
+    Google: [
+      "Fake engagement",
+      "Impersonation",
+      "Misinformation",
+      "Misrepresentation",
+      "Harassment",
+      "Hate speech",
+      "Offensive content",
+      "Personal information",
+      "Obscenity & profanity",
+      "Sexually explicit content",
+      "Adult themed content",
+      "Violence & gore",
+      "Restricted content",
+      "Dangerous content",
+      "Illegal content",
+      "Child safety",
+      "Terrorist content",
+      "Off-topic",
+      "Advertising & solicitation",
+      "Unclear content",
+      "Repetitive content",
+      "Defacement & Mischief",
+    ],
+    Facebook: [
+      "Manipulation",
+      "Incentivization",
+      "Irrelevance",
+      "Graphic or manipulative content",
+      "Spam",
+    ],
+    Yelp: [
+      "Relevance",
+      "Inappropriate content",
+      "Conflicts of interest",
+      "Privacy",
+      "Promotional content",
+      "Posted content",
+      "AI content",
+    ],
+    Trustpilot: [
+      "Second-hand experience",
+      "Outdated review",
+      "Hateful, Defamatory, or obscene",
+      "Threatening",
+      "Incentivized review",
+      "Conflict of interest",
+      "Employed by business",
+      "Trending topic",
+      "Promotional",
+      "Personal information",
+    ],
   };
 
   // Have our AI analyze the review

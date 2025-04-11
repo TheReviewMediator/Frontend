@@ -3,7 +3,11 @@ import Searchbar from "./Searchbar";
 import axios from "axios";
 import styles from "./css/reviews.module.css";
 import Dropdown from "react-bootstrap/Dropdown";
-import DropdownButton from "react-bootstrap/DropdownButton";
+import Accordion from "react-bootstrap/Accordion";
+import Button from "react-bootstrap/Button";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
 import FlagReviewOffcanvas from "./FlagReviewOffcanvas";
 import RespondModal from "./RespondModal";
 
@@ -12,50 +16,70 @@ import RespondModal from "./RespondModal";
 function Review({ review, alertState }) {
   const [showFlag, setShowFlag] = useState(false);
   const [showRespond, setShowRespond] = useState(false);
+  const [preview, setPreview] = useState(",\xa0" + review.content);
 
   const handleShowFlag = () => setShowFlag(true);
   const handleCloseFlag = () => setShowFlag(false);
   const handleShowRespond = () => setShowRespond(true);
   const handleCloseRespond = () => setShowRespond(false);
 
-  return (
-    <div className={styles.reviewHeader}>
-      <div>
-        {review.platform}, <b>{review.rating} stars</b>,
-        <p class="text-muted" style={{ display: "inline" }}>
-          {" "}
-          {review.timestamp.substring(0, 10)}{" "}
-        </p>
-      </div>
-      <div className={styles.reviewBody}>
-        {review.content}
-        <Dropdown className={styles.respondButton}>
-          <Dropdown.Toggle variant="success" id="more_options">
-            More
-          </Dropdown.Toggle>
+  const handlePreview = () => {
+    if (preview === "") {
+      setPreview(",\xa0" + review.content);
+    } else {
+      setPreview("");
+    }
+  };
 
-          <Dropdown.Menu>
-            <Dropdown.Item>Request Outreach</Dropdown.Item>
-            <Dropdown.Item onClick={handleShowFlag}>Flag</Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
-        <button className={styles.respondButton} onClick={handleShowRespond}>
-          Respond
-        </button>
-      </div>
-      <RespondModal
-        show={showRespond}
-        handleClose={handleCloseRespond}
-        review={review}
-        alertState={alertState}
-      ></RespondModal>
-      <FlagReviewOffcanvas
-        show={showFlag}
-        handleClose={handleCloseFlag}
-        review={review}
-        alertState={alertState}
-      ></FlagReviewOffcanvas>
-    </div>
+  return (
+    <Accordion defaultActiveKey="0" onSelect={() => handlePreview()}>
+      <Accordion.Item>
+        <Accordion.Header>
+          {review.platform}, <b> {"\xa0" + review.rating} stars </b>,
+          <i> {"\xa0" + review.timestamp.substring(0, 10)} </i>
+          {preview}
+        </Accordion.Header>
+        <Accordion.Body>
+          <Container fluid>
+            <Row>
+              <Col className={styles.reviewContent}>{review.content}</Col>
+            </Row>
+            <Row>
+              <Col> </Col>
+              <Col xs lg="2" className={styles.accordionButtons}>
+                <Dropdown className={styles.respondButton}>
+                  <Dropdown.Toggle variant="success" id="more_options">
+                    More
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    <Dropdown.Item>Request Outreach</Dropdown.Item>
+                    <Dropdown.Item onClick={handleShowFlag}>Flag</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+                <Button
+                  className={styles.respondButton}
+                  onClick={handleShowRespond}
+                >
+                  Respond
+                </Button>
+              </Col>
+            </Row>
+          </Container>
+        </Accordion.Body>
+        <RespondModal
+          show={showRespond}
+          handleClose={handleCloseRespond}
+          review={review}
+          alertState={alertState}
+        ></RespondModal>
+        <FlagReviewOffcanvas
+          show={showFlag}
+          handleClose={handleCloseFlag}
+          review={review}
+          alertState={alertState}
+        ></FlagReviewOffcanvas>
+      </Accordion.Item>
+    </Accordion>
   );
 }
 
