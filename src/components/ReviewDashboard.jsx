@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Searchbar from "./Searchbar";
 import axios from "axios";
-import styles from "./css/alerts.module.css";
+import review_styles from "./css/reviews.module.css";
+import alert_styles from "./css/alerts.module.css";
 import DashboardNavbar from "./DashboardNavbar";
 import ReviewList from "./ReviewList";
 import Alert from "react-bootstrap/Alert";
-import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
 
 // The actual web page
@@ -41,16 +40,23 @@ const ReviewDashboard = ({ businessId }) => {
     }
   });
 
+  console.log("Review styles:");
+  console.log(review_styles);
+
   return (
-    <div>
+    <flex className={review_styles.centeredFlex}>
       <DashboardNavbar activeLink={"/dashboard/reviews"} sources={sources} />
       <h2> Review Dashboard </h2>
-      <div className={styles.successAlert}>
+      <div className={alert_styles.successAlert}>
         {showAlert != null ? (
-          <Alert className={styles.alert} key={"success"} variant="success">
-            <div className={styles.alertText}> {showAlert} </div>
+          <Alert
+            className={alert_styles.alert}
+            key={"success"}
+            variant="success"
+          >
+            <div className={alert_styles.alertText}> {showAlert} </div>
             <Button
-              className={styles.alertButton}
+              className={alert_styles.alertButton}
               variant="outline-success"
               onClick={() => setShowAlert(null)}
             >
@@ -66,7 +72,7 @@ const ReviewDashboard = ({ businessId }) => {
         setReviews={setReviews}
         alertState={{ state: showAlert, setter: setShowAlert }}
       />
-    </div>
+    </flex>
   );
 };
 

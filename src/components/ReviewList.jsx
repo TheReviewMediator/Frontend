@@ -5,9 +5,9 @@ import styles from "./css/reviews.module.css";
 import Dropdown from "react-bootstrap/Dropdown";
 import Accordion from "react-bootstrap/Accordion";
 import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Container from "react-bootstrap/Container";
 import FlagReviewOffcanvas from "./FlagReviewOffcanvas";
 import RespondModal from "./RespondModal";
 
@@ -117,21 +117,21 @@ function ReviewList({ reviews, setReviews, alertState, sources }) {
   });
 
   return (
-    <div className={styles.dashboard}>
-      <div className={styles.searchBar}>
+    <flex className={styles.dashboard}>
+      <flex className={styles.searchBar}>
         <Searchbar
           reviews={reviews}
           filter={filter}
           setFilter={setFilter}
           sources={sources}
         />
-      </div>
+      </flex>
       <ol className={styles.reviewList}>
         {rows.map((review) => {
           return <li> {review} </li>;
         })}
       </ol>
-    </div>
+    </flex>
   );
 }
 

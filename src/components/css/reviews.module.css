@@ -11,7 +11,7 @@
 .reviewBody {
   margin-top: 10px;
   margin-bottom: 5px;
-  margen-right: 10px;
+  margin-right: 10px;
 }
 
 .respondButton {
@@ -28,13 +28,19 @@
 }
 
 .dashboard {
-  width: 80%;
   display: flex;
+  align-self: center;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
 }
 
 .searchBar {
   flex: 1;
   border: 1px solid black;
+  border-radius: 10px;
+  padding: 10px 10px 10px 10px;
+  align-self: flex-start;
 }
 
 .sourceBoxes {
@@ -63,4 +69,39 @@
 .accordionButtons {
   display: flex;
   justify-content: flex-end;
+}
+
+.centeredFlex {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-items: center;
+  align-self: center;
+}
+
+.searchTextbox {
+  padding-bottom: 10px;
+}
+
+.starDropdown {
+  padding-top: 10px;
+}
+
+.reviewAccordion {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.userHeader {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  justify-self: stretch;
+  flex-direction: row;
+}
+
+.userInfo {
+  display: flex
 }

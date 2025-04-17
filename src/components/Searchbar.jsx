@@ -80,12 +80,14 @@ const Searchbar = ({ reviews, filter, setFilter, sources }) => {
 
   return (
     <div>
-      <input
-        type="search"
-        placeholder="Search"
-        value={search}
-        onChange={updateSearch}
-      />
+      <div className={styles.searchTextbox}>
+        <input
+          type="search"
+          placeholder="Search"
+          value={search}
+          onChange={updateSearch}
+        />
+      </div>
       <label>
         <input type="checkbox" />
         Flagged reviews only
@@ -94,16 +96,17 @@ const Searchbar = ({ reviews, filter, setFilter, sources }) => {
         <b> Sources </b>
         <Sourcebox sources={sourceCheckboxes} />
       </div>
-
-      <label>
-        <select defaultValue="1" value={stars} onChange={updateStars}>
-          <option value="5"> 5 stars </option>
-          <option value="4"> 4 stars or more </option>
-          <option value="3"> 3 stars or more </option>
-          <option value="2"> 2 stars or more </option>
-          <option value="1"> 1 stars or more </option>
-        </select>
-      </label>
+      <div>
+        <label className={styles.starDropdown}>
+          <select defaultValue="1" value={stars} onChange={updateStars}>
+            <option value="5"> 5 stars </option>
+            <option value="4"> 4 stars or more </option>
+            <option value="3"> 3 stars or more </option>
+            <option value="2"> 2 stars or more </option>
+            <option value="1"> 1 stars or more </option>
+          </select>
+        </label>
+      </div>
     </div>
   );
 };
