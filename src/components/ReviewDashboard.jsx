@@ -12,6 +12,7 @@ const ReviewDashboard = ({ businessId }) => {
   let sources = [];
   const [reviews, setReviews] = useState([]);
   const [showAlert, setShowAlert] = useState(null); // This is drilled down to the offcanvases
+  console.log(`Current login token: ${localStorage.getItem('token')}`)
 
   useEffect(() => {
     const fetchReviews = async () => {

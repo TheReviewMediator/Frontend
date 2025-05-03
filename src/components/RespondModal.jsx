@@ -5,6 +5,9 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
+// You know, when I was creating this frontend, I thought I was doing a good job organizing things.
+// but I didn't realize the spaghetti monster will not make itself known until it is too late....
+
 // Three inputs:
 // Show - The state of the offcanvas
 // handleClose - the function that will close the canvas
@@ -18,10 +21,10 @@ function RespondModal({ show, handleClose, review }) {
     console.log(review.review_ID);
     console.log(reply);
     try {
-      const response = axios({
+      const response = await axios({
         method: "post",
         url: process.env.BACKEND_URI + "/api/interactions/respond",
-        headers: {}, // auth headers go here
+        headers: localStorage.getItem('auth_headers'),
         data: {
           reviewId: review.review_ID,
           responseText: reply,

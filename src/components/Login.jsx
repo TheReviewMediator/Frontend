@@ -7,16 +7,32 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post(
-        process.env.BACKEND_URI + "/auth/login",
-        { email: username, password }
-      );
-      localStorage.setItem("token", response.data.token);
+      console.log(`Attempting to sign up as ${username} ${password}`)
+      const response = await axios({
+        method: "post",
+        url: process.env.BACKEND_URI + "/auth/login",
+        data: {
+          username: username,
+          password: password
+        }
+      });
+      localStorage.setItem("user", username);
+      localStorage.setItem("auth_headers", {
+        Authorization: `Bearer ${response.data.token}`,
+        // application/json probably isn't appropriate for every request but iirc its appropriate for most
+        // which, at this point, is good enough for me :)
+        "Content-Type": "application/json",
+      })
       alert("Login successful!");
     } catch (error) {
       alert("Login failed. Reason: " + error);
     }
   };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    alert("Logout successful!");
+  }
 
   return (
     <div>
@@ -34,6 +50,7 @@ const Login = () => {
         onChange={(e) => setPassword(e.target.value)}
       />
       <button onClick={handleLogin}>Login</button>
+      <button onClick={handleLogout}>Logout</button>
     </div>
   );
 };

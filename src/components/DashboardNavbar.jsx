@@ -46,6 +46,10 @@ const DashboardNavbar = ({ activeLink, sources }) => {
             {" "}
             Connect To Platforms{" "}
           </Nav.Link>
+          {/* This is temporary just to show that a user is logged in */}
+          <Navbar.Text>
+            Signed in as: <b> {localStorage.getItem('user')} </b>
+          </Navbar.Text>
         </Nav>
       </Navbar>
       <ConnectOffcanvas

@@ -11,6 +11,7 @@ const Signup = () => {
         process.env.BACKEND_URI + "/auth/signup",
         { username, email: "TODO", password }
       );
+      
       alert("Signup successful!");
     } catch (error) {
       alert("Signup failed. Reason: " + error);
